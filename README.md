@@ -14,4 +14,4 @@ To be able to use and or run the projects as a whole you will need...
 
 In both the `es5` and `es8` directories, open `config.js` and enter the url to your mongo database. 
 
-You will also find a Postman json file in the root directory so you can play with the apis as needed
+You will also find a Postman json file in the root directory so you can play with the apis as needed.

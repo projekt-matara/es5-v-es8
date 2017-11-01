@@ -70,7 +70,7 @@ app.use(function (req, res, next) {
   next()
 })
 
-// initialize passport
+// initialize passport 
 app.use(passport.initialize())
 
 // body parser
