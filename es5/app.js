@@ -76,21 +76,21 @@ app.use(passport.initialize())
 // body parser
 app.use(bodyParser.json())
 
-// routing
+// routing 
 // create user
 app.post('/user/new', user.createUser)
 // get user by username
-app.get('/user/:username', user.getUser),
+app.get('/user/:username', jwt({secret: config.secret}), user.getUser),
 // delete user by username
-app.delete('/user', user.deleteUser),
+app.delete('/user', jwt({secret: config.secret}), user.deleteUser),
 // get user tasks
-app.get('/task/:username', task.getUserTasks),
+app.get('/task/:username', jwt({secret: config.secret}), task.getUserTasks),
 // create new task
-app.post('/task', task.createTask),
+app.post('/task', jwt({secret: config.secret}), task.createTask),
 // edit task
-app.put('/task', task.editTask),
+app.put('/task', jwt({secret: config.secret}), task.editTask),
 // delete task
-app.delete('/task/:username/:taskname', task.deleteTask)
+app.delete('/task/:username/:taskname', jwt({secret: config.secret}), task.deleteTask)
 
 // start server
 var server = http.createServer(app)
