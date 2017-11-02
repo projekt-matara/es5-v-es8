@@ -9,13 +9,13 @@ for (var i = 0; i < x.length; i++) {
 }
 
 // now let's iterate through this ES6 style
-var z = []
+let z = []
 for (let num of x) {
   z.push(num * 2)
 }
 
 // not bad, but ES6 also provides the ability to do this functionally
-const a = x.map(num => return num * 2) // does exact same thing as for loops above
+const a = x.map(num => num * 2) 
 // it also provides filter and reduce methods
-const sumOfX = x.reduce((acc, num) => return acc += num, 0)
-const evenNumbers = x.filter(num => return num % 2)
+const sumOfX = x.reduce((acc, num) => acc += num, 0)
+const evenNumbers = x.filter(num => num % 2)
