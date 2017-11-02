@@ -49,7 +49,7 @@ server.exchange(oauth2orize.exchange.password(function (client, username, passwo
             clientId: client.clientId
           }
           // create jwt
-          jwt.sign(payload, config.secret, {expiresIn: 'h1'}, function (err, jwt) {
+          jwt.sign(payload, config.secret, {expiresIn: '1h'}, function (err, jwt) {
             if (err) {
               return false
             } else {
