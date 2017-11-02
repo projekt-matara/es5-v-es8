@@ -23,43 +23,41 @@ var config = require('../config')
 var server = oauth2orize.createServer()
 
 // Password exchange flow
-server.exchange(oauth2orize.exchange.password(async (client, username, password, scope) => {
-  // generate refresh token
-  var refreshToken = await utility.uid(256)
-  // encrypt the refresh token
-  var refreshTokenHash = crypto.createHash('sha1').update(refreshToken).digest('hex')
-  
-  // Find user by email
-  var user = await User.findOneAsync({username: username})
-  if (!user) {return false}
-  // password check
-  var passwordCompareResult = await bcrypt.compareAsync(password, user.password)
-  if (!passwordCompareResult) {return false}
-  // format the jwt data
-  var payload = {
-    name: user.username,
-    userId: user.id,
-    sub: user.username,
-    aud: 'todo-list',
-    issuer: 'todo-list',
-    role: user.role,
-    clientId: client.clientId
-  }
-  // create jwt
-  var token = await jwt.signAsync(payload, config.secret, {expiresIn: '1h'})
-  if (!token) {return false} 
-  // send jwt
-  return token
-}))
-
 server.exchange(oauth2orize.exchange.password(function (client, username, password, scope) {
   // generate refresh token
-  utility.uid(256, function (err, refreshToken) {
-    if (err) {
-      console.log(err)
+  var refreshToken = utility.uid(256)
+  // encrypt the refreshToken
+  var refreshTokenHash = crypto.createHash('sha1').update(refreshToken).digest('hex')
+
+  // find user by email
+  User.findOne({username: username}, function (err, user) {
+    if (!user) {
+      return false
     } else {
-      // encrypt the refresh token
-      var refreshTokenHash = crypto.createHash('sha1').update(refreshToken).digest('hex')
+      // password check
+      bcrypt.compare(password, user.password, function(err, result) {
+        if (err) {
+          return false
+        } else {
+          var payload = {
+            name: user.username,
+            userId: user.id,
+            sub: user.username,
+            aud: 'todo-list',
+            issuer: 'todo-list',
+            role: user.role,
+            clientId: client.clientId
+          }
+          // create jwt
+          jwt.sign(payload, config.secret, {expiresIn: 'h1'}, function (err, jwt) {
+            if (err) {
+              return false
+            } else {
+              return jwt
+            }
+          })
+        }
+      })
     }
   })
 }))

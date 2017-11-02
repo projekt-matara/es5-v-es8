@@ -1,7 +1,7 @@
-const Promise = require('bluebird'),
-			config = require('../config'),
-			jwt = Promise.promisifyAll(require('jsonwebtoken')),
-			User = require('../model/Model').User
+const Promise = require('bluebird')
+const config = require('../config')
+const jwt = Promise.promisifyAll(require('jsonwebtoken'))
+const User = require('../model/Model').User
 
 exports.generateJwt = userId => {
  	const payload = {id: userId},
@@ -19,23 +19,8 @@ exports.generateJwt = userId => {
  * @api private
  */
 
-function getRandomInt (min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min
-}
-
-/*
-  * Return a random int, used by `utils.uid()`
-  * Meant for external use for the rest of the app services
-  *
-  * @param {Number} min
-  * @param {Number} max
-  * @return {Number}
-  * @api private
-*/
-
-exports.getRandomInt = (min, max) => {
-  return Math.floor(Math.random() * (max - min + 1)) + min
-}
+const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min
+exports.getRandomInt = getRandomInt
 
 /*
 *	Return a JWT with necessary ID information
@@ -44,8 +29,8 @@ exports.getRandomInt = (min, max) => {
 * @return {String}
 */
 exports.generateJwt = (payloadInfo) => {
- 	const payload = payloadInfo,
-   opts = {expiresIn: '1h'}
+ 	const payload = payloadInfo
+  const opts = {expiresIn: '1h'}
  	return jwt.signAsync(payload, config.secret, opts)
 }
 
@@ -60,13 +45,13 @@ exports.generateJwt = (payloadInfo) => {
  * @api private
  */
 exports.uid = (len) => {
-  const buf = [],
-        	chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789',
-        	charlen = chars.length
+  const buf = []
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+  const charlen = chars.length
 
   for (var i = 0; i < len; ++i) {
     buf.push(chars[getRandomInt(0, charlen - 1)])
   }
-
+  
   return buf.join('')
 }

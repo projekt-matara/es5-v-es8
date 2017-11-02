@@ -26,7 +26,7 @@ const server = oauth2orize.createServer()
 // Password exchange flow
 server.exchange(oauth2orize.exchange.password(async (client, username, password, scope) => {
   // generate refresh token
-  const refreshToken = await utility.uid(256)
+  const refreshToken = utility.uid(256)
   // encrypt the refresh token
   const refreshTokenHash = await crypto.createHash('sha1').update(refreshToken).digest('hex')
   if (!refreshTokenHash) {return false}
