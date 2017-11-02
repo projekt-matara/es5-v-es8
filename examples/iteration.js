@@ -16,6 +16,7 @@ for (let num of x) {
 
 // not bad, but ES6 also provides the ability to do this functionally
 const a = x.map(num => num * 2) 
+
 // it also provides filter and reduce methods
 const sumOfX = x.reduce((acc, num) => acc += num, 0)
 const evenNumbers = x.filter(num => num % 2)
