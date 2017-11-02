@@ -40,20 +40,22 @@ function readLotsOfFiles (x, y, z) {
 // now let's see the same thing with Promises ES6 style
 function readLotsOfFiles (x, y, z) {
   let fileOne, fileTwo, fileThree
-  fs.readFileAsync(x)
-  .then(file => {
-    fileOne = file
-    return fs.readFileAsync(y) // return a Promise which shows up as the parameter "newFile"
-  })
-  .then(newFile => {
-    fileTwo = newFile
-    return fs.readFileAsync(z)
-  })
-  .then(newerFile => {
-    fileThree = newerFile
-    return [fileOne, fileTwo, fileThree]
-  })
-  .catch(err => console.log(err))
+  const files = fs.readFileAsync(x)
+    .then(file => {
+      fileOne = file
+      return fs.readFileAsync(y) // return a Promise which shows up as the parameter "newFile"
+    })
+    .then(newFile => {
+      fileTwo = newFile
+      return fs.readFileAsync(z)
+    })
+    .then(newerFile => {
+      fileThree = newerFile
+      return [fileOne, fileTwo, fileThree]
+    })
+    .catch(err => console.log(err))
+  
+  return files
 }
 
 // that's all well and good, however, this is ES8
