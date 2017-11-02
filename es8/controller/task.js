@@ -2,8 +2,7 @@
 const Promise = require('bluebird')
 
 // import models
-const User = Promise.promisifyAll(require('../model/Model').User)
-const Task = Promise.promisifyAll(require('../model/Model').Task)
+const {User, Task} = Promise.promisifyAll(require('../model/Model'))
 
 // get all tasks for specific user
 exports.getUserTasks = async ctx => {

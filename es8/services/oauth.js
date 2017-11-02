@@ -7,8 +7,7 @@
 // load modules
 const Promise = require('bluebird')
 const oauth2orize = require('oauth2orize-koa')
-const Client = Promise.promisifyAll(require('../model/Model').Client)
-const User = Promise.promisifyAll(require('../model/Model').User)
+const {Client, User} = Promise.promisifyAll(require('../model/Model'))
 const jwt = Promise.promisifyAll(require('jsonwebtoken'))
 const crypto = require('crypto')
 const fs = require('fs')
@@ -28,8 +27,7 @@ server.exchange(oauth2orize.exchange.password(async (client, username, password,
   // generate refresh token
   const refreshToken = utility.uid(256)
   // encrypt the refresh token
-  const refreshTokenHash = await crypto.createHash('sha1').update(refreshToken).digest('hex')
-  if (!refreshTokenHash) {return false}
+  const refreshTokenHash = crypto.createHash('sha1').update(refreshToken).digest('hex')
   // Find user by email
   const user = await User.findOneAsync({username: username})
   if (!user) {return false}
