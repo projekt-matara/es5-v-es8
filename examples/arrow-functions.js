@@ -10,11 +10,11 @@ const multiply = (x, y) => {
 
 // when you have one parameter, you don't need parenthesis
 const increment = x => {
-  return x + 1
+  return x++
 }
 
 // and when you can fit your function in one line, you don't need brackets and return is implied
-const incrementAgain = x => x + 1
+const incrementAgain = x => x++
 
 // works for async functions too
 const subtract = async (x, y) => {
