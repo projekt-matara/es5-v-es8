@@ -13,7 +13,7 @@ exports.generateJwt = payloadInfo => {
 }
 
 exports.uid = len => {
-  const buf = []
+  let buf = []
   const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
   const charlen = chars.length
 

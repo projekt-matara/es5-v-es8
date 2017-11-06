@@ -29,7 +29,7 @@ server.exchange(oauth2orize.exchange.password(async (client, username, password,
   // encrypt the refresh token
   const refreshTokenHash = crypto.createHash('sha1').update(refreshToken).digest('hex')
   // Find user by email
-  const user = await User.findOneAsync({username: username})
+  const user = await User.findOneAsync({username})
   if (!user) {return false}
   // password check
   const passwordCompareResult = await bcrypt.compareAsync(password, user.password)
@@ -46,7 +46,7 @@ server.exchange(oauth2orize.exchange.password(async (client, username, password,
   }
   // create jwt
   const token = await jwt.signAsync(payload, config.secret, {expiresIn: '1h'})
-  if (!token) {return false} 
+  if (!token) {return false}
   
   // send jwt
   return token

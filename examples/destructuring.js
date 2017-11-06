@@ -30,3 +30,7 @@ let y = 1
 const [x, y] = [y, x]
 console.log(x) // --> 1
 console.log(y) // --> 0 
+
+// we also get object literals which come in handy when passing values into functions.
+User.findOne({username: username}) // --> old way
+User.findOne({username}) // -- ES8 way

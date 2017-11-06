@@ -59,7 +59,7 @@ mongoose
   console.log('connected to mongo :-)')
   clientCheck()
 })
-.catch((err) => {
+.catch(err => {
   console.log("Error connecting to Mongo")
   console.log(err)
 })

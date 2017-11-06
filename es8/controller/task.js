@@ -7,7 +7,7 @@ const {User, Task} = Promise.promisifyAll(require('../model/Model'))
 // get all tasks for specific user
 exports.getUserTasks = async ctx => {
   // grab username
-  const username = ctx.params.username
+  const {username} = ctx.params
   // find user by username
   const user = await User.findOneAsync({username})
   if (!user) {throw new Error('User not found')}

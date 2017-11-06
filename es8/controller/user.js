@@ -4,7 +4,6 @@ const Promise = require('bluebird')
 // import models
 const {User, Task} = Promise.promisifyAll(require('../model/Model'))
 
-
 // get user by username
 exports.getUser = async ctx => {
   // grab user from database by username
@@ -32,7 +31,7 @@ exports.createUser = async ctx => {
 // delete user by username
 exports.deleteUser = async ctx => {
   // get username
-  const username = ctx.request.body.username
+  const {username} = ctx.request.body
   // delete user by username
   const deletedUser = await User.findOneAndRemoveAsync({username})
   if (!deletedUser) {throw new Error('Failed to delete user.')}
@@ -40,4 +39,3 @@ exports.deleteUser = async ctx => {
   ctx.status = 200
   ctx.body = "success"
 }
-
